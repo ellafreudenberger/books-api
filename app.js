@@ -6,6 +6,10 @@ require('dotenv').config(); // Load environment variables from .env file
 const app = express();
 const port = 3000;
 
+const booksRouter = require('./controllers/booksController');
+
+app.use('/books', booksRouter);
+
 // Configure body-parser for JSON
 app.use(express.json());
 

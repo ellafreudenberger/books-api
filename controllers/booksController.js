@@ -30,4 +30,58 @@ booksRouter.get('/:id', (req, res) => {
   
   module.exports = booksRouter;
 
+  // POST /books
+booksRouter.post('/', (req, res) => {
+    const { id, title, description, year, quantity, imageURL } = req.body;
+    const newBook = new Book({
+      id,
+      title,
+      description,
+      year,
+      quantity,
+      imageURL,
+    });
+  
+    newBook
+      .save()
+      .then((createdBook) => {
+        res.status(201).json(createdBook);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: 'Error creating book', message: err.message });
+      });
+  });
+  
+  // PUT /books/:id
+booksRouter.put('/:id', (req, res) => {
+    const bookId = req.params.id;
+    const updatedBookData = req.body;
+  
+    Book.findByIdAndUpdate(bookId, updatedBookData, { new: true })
+      .then((updatedBook) => {
+        if (!updatedBook) {
+          return res.status(404).json({ error: 'Book not found' });
+        }
+        res.status(200).json(updatedBook);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: 'Error updating book', message: err.message });
+      });
+  });
+  
+  // DELETE /books/:id
+booksRouter.delete('/:id', (req, res) => {
+    const bookId = req.params.id;
+  
+    Book.findByIdAndRemove(bookId)
+      .then((deletedBook) => {
+        if (!deletedBook) {
+          return res.status(404).json({ error: 'Book not found' });
+        }
+        res.status(200).json({ message: 'Book deleted successfully' });
+      })
+      .catch((err) => {
+        res.status(500).json({ error: 'Error deleting book', message: err.message });
+      });
+  });
   
