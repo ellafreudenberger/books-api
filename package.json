@@ -8,12 +8,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git init"
+    "url": "https://github.com/ellafreudenberger/books-api"
   },
+
   "keywords": [
-    "nano",
-    "package.json"
+    "Express",
+    "API",
+    "books",
+    "my-project"
   ],
+  
+  
   "author": "Ella",
   "license": "ISC",
   "dependencies": {
